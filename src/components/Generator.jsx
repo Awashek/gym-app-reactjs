@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useState} from 'react'
 import SectionWrapper from './SectionWrapper'
 import { WORKOUTS } from '../utils/swoldier'
+
 function Header(props) {
   const {index, title, description} = props
   return (
@@ -16,7 +17,12 @@ function Header(props) {
 }
 
 export default function Generator() {
-  let showModel = false
+  const [showModel, setshowModel] = useState(false)
+
+
+  function toggelModal() {
+    setshowModel(!showModel)
+  } 
   return (
     <SectionWrapper header={"generate your workout"} title=
       {['It\'s', 'Huge','o\'clock']}>
@@ -36,14 +42,14 @@ export default function Generator() {
         </div>
         <Header index={'02'} title={'Lock on targets'} 
         description={'Select the muscles judge for annihilation'}/>
-        <div className='bg-slate-950 p-3 border border-solid
-        border-blue-400 rounded-lg'>
-          <div className='relative flex items-center
+        <div className='bg-slate-950 border border-solid
+        border-blue-400 rounded-lg flex flex-col'>
+          <button onClick={toggelModal} className='relative p-3 flex items-center
           justify-center'> 
             <p>Select muscle groups</p>
             <i className="fa-solid absolute right-3
             top-1/2 -translate-y-1/2 fa-caret-down "></i>
-          </div>
+          </button>
           {showModel && (
             <div> model</div>
           )}
