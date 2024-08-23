@@ -20,7 +20,7 @@ export default function Generator() {
   const [showModel, setshowModel] = useState(false)
   const [poison, setPoisen] = useState('individul')
   const [muscle, setMuscle] = useState([])
-  const [goals, setGoals] = useState('strength_power')
+  const [goal, setGoal] = useState('strength_power')
  
 
   function toggelModal() {
@@ -37,9 +37,10 @@ export default function Generator() {
           return (
             <button onClick={() => {
               setPoisen(type)
-            }} className='bg-slate-950 border
-            border-blue-400 py-3 rounded-lg
-            duration-200 hover:border-blue-600' 
+            }} className={`bg-slate-950 border
+             py-3 rounded-lg
+            duration-200 hover:border-blue-600 
+            ${type === poison ? 'border-blue-600' : 'border-blue-400'}`} 
             key={typeIndex}>
               <p className='capatalize'>{type.replaceAll('_',' ')}</p>
             </button>
@@ -58,18 +59,33 @@ export default function Generator() {
             top-1/2 -translate-y-1/2 fa-caret-down "></i>
           </button>
           {showModel && (
-            <div> model</div>
+            <div className='flex flex-col px-3 pb-3'>
+              {(poison === 'individual' ? WORKOUTS
+              [poison] : Object.keys(WORKOUTS
+                [poison])).map((muscleGroup,
+                   muscleGroupIndex) => {
+                    return (
+                      <button key={muscleGroupIndex}>
+                        <p className=''>{muscleGroup}</p>
+                      </button>
+                    )
+                 })}
+            </div>
           )}
         </div>
 
-        <Header index={'03'} title={'Becone Juggernaut'} 
+        <Header index={'03'} title={'Become Juggernaut'} 
         description={'Select your ultimate objective.'}/>
         <div className='grid grid-cols-3 gap-4'>
           {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
           return (
-            <button className='bg-slate-950 border
-            border-blue-400 py-3 rounded-lg
-            duration-200 hover:border-blue-600' key={schemeIndex}>
+            <button onClick={() => {
+              setGoals(scheme)
+            }} className={`bg-slate-950 border
+             py-3 rounded-lg
+            duration-200 hover:border-blue-600 
+            ${scheme === goal ? 'border-blue-600' : 'border-blue-400'}`} 
+            key={schemeIndex}>
               <p className='capatalize'>{scheme.replaceAll('_',' ')}</p>
             </button>
           )
