@@ -26,11 +26,17 @@ export default function Generator() {
   function toggelModal() {
     setshowModel(!showModel)
   } 
+
+  function updateMuscles(muscleGroup) {
+    
+  }
+
   return (
     <SectionWrapper header={"generate your workout"} title=
       {['It\'s', 'Huge','o\'clock']}>
         <Header index={'01'} title={'Pick your poison'} 
         description={'Select the workout you wish to enroll'}/>
+
         <div className='grid grid-cols-2 sm:grid-cols-4
         gap-4'>
           {Object.keys(WORKOUTS).map((type, typeIndex) => {
@@ -62,11 +68,13 @@ export default function Generator() {
             <div className='flex flex-col px-3 pb-3'>
               {(poison === 'individual' ? WORKOUTS
               [poison] : Object.keys(WORKOUTS
-                [poison])).map((muscleGroup,
-                   muscleGroupIndex) => {
+                [poison])).map((muscleGroup, muscleGroupIndex) => {
                     return (
-                      <button key={muscleGroupIndex}>
-                        <p className=''>{muscleGroup}</p>
+                      <button onClick={() => {
+                        updateMuscles
+                      }} key={muscleGroupIndex}
+                      className='hover:text-blue-400 duration-200'>
+                        <p className='uppercase'>{muscleGroup.replaceAll('_',' ')}</p>
                       </button>
                     )
                  })}
