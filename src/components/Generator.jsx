@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import SectionWrapper from './SectionWrapper'
-import { WORKOUTS } from '../utils/swoldier'
+import { SCHEMES, WORKOUTS } from '../utils/swoldier'
 
 function Header(props) {
   const {index, title, description} = props
@@ -18,7 +18,10 @@ function Header(props) {
 
 export default function Generator() {
   const [showModel, setshowModel] = useState(false)
-
+  const [poison, setPoisen] = useState('individul')
+  const [muscle, setMuscle] = useState([])
+  const [goals, setGoals] = useState('strength_power')
+ 
 
   function toggelModal() {
     setshowModel(!showModel)
@@ -32,14 +35,18 @@ export default function Generator() {
         gap-4'>
           {Object.keys(WORKOUTS).map((type, typeIndex) => {
           return (
-            <button className='bg-slate-950 border
+            <button onClick={() => {
+              setPoisen(type)
+            }} className='bg-slate-950 border
             border-blue-400 py-3 rounded-lg
-            duration-200 hover:border-blue-600' key={typeIndex}>
+            duration-200 hover:border-blue-600' 
+            key={typeIndex}>
               <p className='capatalize'>{type.replaceAll('_',' ')}</p>
             </button>
           )
         })}
         </div>
+
         <Header index={'02'} title={'Lock on targets'} 
         description={'Select the muscles judge for annihilation'}/>
         <div className='bg-slate-950 border border-solid
@@ -53,6 +60,20 @@ export default function Generator() {
           {showModel && (
             <div> model</div>
           )}
+        </div>
+
+        <Header index={'03'} title={'Becone Juggernaut'} 
+        description={'Select your ultimate objective.'}/>
+        <div className='grid grid-cols-3 gap-4'>
+          {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
+          return (
+            <button className='bg-slate-950 border
+            border-blue-400 py-3 rounded-lg
+            duration-200 hover:border-blue-600' key={schemeIndex}>
+              <p className='capatalize'>{scheme.replaceAll('_',' ')}</p>
+            </button>
+          )
+        })}
         </div>
     </SectionWrapper>
   )
