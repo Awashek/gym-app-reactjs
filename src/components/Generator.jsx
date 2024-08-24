@@ -18,8 +18,8 @@ function Header(props) {
 
 export default function Generator() {
   const [showModel, setshowModel] = useState(false)
-  const [poison, setPoisen] = useState('individul')
-  const [muscle, setMuscle] = useState([])
+  const [poison, setPoisen] = useState('individual')
+  const [muscles, setMuscles] = useState([])
   const [goal, setGoal] = useState('strength_power')
  
 
@@ -28,7 +28,19 @@ export default function Generator() {
   } 
 
   function updateMuscles(muscleGroup) {
-    
+    if (muscles.length > 2) {
+      return
+    }
+
+    if (poison !== 'individual') {
+      setMuscles([muscleGroup])
+      return
+    }
+
+    if (muscles.includes(muscleGroup)) {
+      setMuscles(muscles.filter(val => val !== muscleGroup))
+    }
+    setMuscles([...muscles], setMuscles)
   }
 
   return (
@@ -88,7 +100,7 @@ export default function Generator() {
           {Object.keys(SCHEMES).map((scheme, schemeIndex) => {
           return (
             <button onClick={() => {
-              setGoals(scheme)
+              setGoal(scheme)
             }} className={`bg-slate-950 border
              py-3 rounded-lg
             duration-200 hover:border-blue-600 
