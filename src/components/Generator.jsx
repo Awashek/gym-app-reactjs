@@ -28,7 +28,12 @@ export default function Generator() {
   } 
 
   function updateMuscles(muscleGroup) {
-    if (muscles.length > 2) {
+    if (muscles.includes(muscleGroup)) {
+      setMuscles(muscles.filter(val => val !== muscleGroup))
+      return
+    }
+
+    if (muscles.length > 3) {
       return
     }
 
@@ -37,10 +42,7 @@ export default function Generator() {
       return
     }
 
-    if (muscles.includes(muscleGroup)) {
-      setMuscles(muscles.filter(val => val !== muscleGroup))
-    }
-    setMuscles([...muscles], setMuscles)
+    setMuscles([...muscles], muscleGroup)
   }
 
   return (
@@ -83,10 +85,12 @@ export default function Generator() {
                 [poison])).map((muscleGroup, muscleGroupIndex) => {
                     return (
                       <button onClick={() => {
-                        updateMuscles
+                        updateMuscles(muscleGroup)
                       }} key={muscleGroupIndex}
-                      className='hover:text-blue-400 duration-200'>
-                        <p className='uppercase'>{muscleGroup.replaceAll('_',' ')}</p>
+                      className={`hover:text-blue-400 duration-200  ${muscles.includes(muscleGroup)
+                         ? 'text-blue-400' : ''}`}>
+                        <p className='uppercase'>
+                          {muscleGroup.replaceAll('_',' ')}</p>
                       </button>
                     )
                  })}
