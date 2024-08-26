@@ -5,6 +5,7 @@ import Button from './Button'
 
 function Header(props) {
   const {index, title, description} = props
+
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex items-center justify-center gap-4'>
@@ -17,12 +18,9 @@ function Header(props) {
   )
 }
 
-export default function Generator() {
+export default function Generator(props) {
+  const {poison, setPoisen, muscles, setMuscles, goal, setGoal,updateWorkout} = props
   const [showModel, setshowModel] = useState(false)
-  const [poison, setPoisen] = useState('individual')
-  const [muscles, setMuscles] = useState([])
-  const [goal, setGoal] = useState('strength_power')
- 
 
   function toggelModal() {
     setshowModel(!showModel)
@@ -120,7 +118,7 @@ export default function Generator() {
           )
         })}
         </div>
-        <Button text= {'Formulate'}/>
+        <Button func={updateWorkout} text= {'Formulate'}/>
     </SectionWrapper>
   )
 }
