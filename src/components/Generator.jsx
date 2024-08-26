@@ -33,7 +33,7 @@ export default function Generator() {
       return
     }
 
-    if (muscles.length > 3) {
+    if (muscles.length > 2) {
       return
     }
 
@@ -42,7 +42,7 @@ export default function Generator() {
       return
     }
 
-    setMuscles([...muscles], muscleGroup)
+    setMuscles([...muscles, muscleGroup])
   }
 
   return (
@@ -80,18 +80,16 @@ export default function Generator() {
           </button>
           {showModel && (
             <div className='flex flex-col px-3 pb-3'>
-              {(poison === 'individual' ? WORKOUTS
-              [poison] : Object.keys(WORKOUTS
-                [poison])).map((muscleGroup, muscleGroupIndex) => {
-                    return (
-                      <button onClick={() => {
+            {(poison === 'individual' ? WORKOUTS[poison] 
+            : Object.keys(WORKOUTS[poison]))
+            .map((muscleGroup, muscleGroupIndex) => {
+                return (
+                    <button onClick={() => {
                         updateMuscles(muscleGroup)
-                      }} key={muscleGroupIndex}
-                      className={`hover:text-blue-400 duration-200  ${muscles.includes(muscleGroup)
-                         ? 'text-blue-400' : ''}`}>
-                        <p className='uppercase'>
-                          {muscleGroup.replaceAll('_',' ')}</p>
-                      </button>
+                    }} key={muscleGroupIndex} className={`hover:text-blue-400 duration-200 ' +
+                     ${muscles.includes(muscleGroup) ? ' text-blue-400' : ' '}`}>
+                        <p className='uppercase'>{muscleGroup.replaceAll('_', ' ')}</p>
+                    </button>
                     )
                  })}
             </div>
