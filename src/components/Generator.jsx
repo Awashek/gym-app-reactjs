@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import SectionWrapper from './SectionWrapper'
 import { SCHEMES, WORKOUTS } from '../utils/swoldier'
+import Button from './Button'
 
 function Header(props) {
   const {index, title, description} = props
@@ -39,10 +40,13 @@ export default function Generator() {
 
     if (poison !== 'individual') {
       setMuscles([muscleGroup])
+      setshowModel(false)
       return
     }
 
     setMuscles([...muscles, muscleGroup])
+    if (muscles.length === 2)
+      setshowModel(false)
   }
 
   return (
@@ -56,9 +60,10 @@ export default function Generator() {
           {Object.keys(WORKOUTS).map((type, typeIndex) => {
           return (
             <button onClick={() => {
+              setMuscles([])  
               setPoisen(type)
             }} className={`bg-slate-950 border
-             py-3 rounded-lg
+             py-3 px-4 rounded-lg
             duration-200 hover:border-blue-600 
             ${type === poison ? 'border-blue-600' : 'border-blue-400'}`} 
             key={typeIndex}>
@@ -74,7 +79,9 @@ export default function Generator() {
         border-blue-400 rounded-lg flex flex-col'>
           <button onClick={toggelModal} className='relative p-3 flex items-center
           justify-center'> 
-            <p>Select muscle groups</p>
+            <p className='capitalize'>
+              {muscles.length === 0 ? 'Select muscle groups'
+              : muscles.join(' ')}</p>
             <i className="fa-solid absolute right-3
             top-1/2 -translate-y-1/2 fa-caret-down "></i>
           </button>
@@ -104,7 +111,7 @@ export default function Generator() {
             <button onClick={() => {
               setGoal(scheme)
             }} className={`bg-slate-950 border
-             py-3 rounded-lg
+             py-3 px- 4 rounded-lg
             duration-200 hover:border-blue-600 
             ${scheme === goal ? 'border-blue-600' : 'border-blue-400'}`} 
             key={schemeIndex}>
@@ -113,6 +120,7 @@ export default function Generator() {
           )
         })}
         </div>
+        <Button text= {'Formulate'}/>
     </SectionWrapper>
   )
 }
